@@ -31,12 +31,14 @@
       "preco": 15,
       "categoriaId": "3",
       "estoque": 3,
+      "fornecedorId": "3",
       "id": "2"
     },
     {
       "nome": "Cama de Algodão G",
       "preco": 120,
       "categoriaId": "4",
+      "fornecedorId": "2",
       "id": "3",
       "estoque": 5
     },
@@ -44,6 +46,7 @@
       "nome": "Suplemento Vitamínico",
       "preco": 45.5,
       "categoriaId": "5",
+      "fornecedorId": "3",
       "id": "4",
       "estoque": 20
     },
@@ -52,6 +55,7 @@
       "nome": "Guia Retrátil 5m",
       "preco": 89.9,
       "categoriaId": 6,
+      "fornecedorId": "2",
       "estoque": 15
     },
     {
@@ -59,6 +63,7 @@
       "nome": "Ração para Peixes Goldfish",
       "preco": 12,
       "categoriaId": 7,
+      "fornecedorId": "3",
       "estoque": 50
     },
     {
@@ -66,7 +71,24 @@
       "nome": "Cama de Batata",
       "preco": 100,
       "categoriaId": 4,
+      "fornecedorId": "2",
       "estoque": 8
+    },
+    {
+      "nome": "Testando com Estoque",
+      "preco": 122,
+      "categoriaId": "2",
+      "fornecedorId": "3",
+      "estoque": 13,
+      "id": "7PZF4Z5Gx2c"
+    },
+    {
+      "nome": "teste 2",
+      "preco": 123,
+      "categoriaId": "6",
+      "fornecedorId": "2",
+      "estoque": 100,
+      "id": "nw6_fBI8XRU"
     }
   ],
   "fornecedores": [

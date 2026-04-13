@@ -13,15 +13,17 @@ export function ListaProdutos() {
       try {
         const response = await fetch("http://localhost:3001/produtos");
         const data = await response.json();
-        const produtosComCategoria = await Promise.all(data.map(async (produto: Produto) => {
-         const response = await fetch(`http://localhost:3001/categorias/${Number(produto.categoriaId)}`);
+        const produtosComDados = await Promise.all(data.map(async (produto: Produto) => {
+         const responseCategoria = await fetch(`http://localhost:3001/categorias/${Number(produto.categoriaId)}`);
+         const responseFornecedor = await fetch(`http://localhost:3001/fornecedores/${Number(produto.fornecedorId)}`);
          return {
           ...produto,
-          categoria: await response.json()
+          categoria: await responseCategoria.json(),
+          fornecedor: await responseFornecedor.json()
          }
         
         }))
-        setProdutos(produtosComCategoria);
+        setProdutos(produtosComDados);
       } catch (error) {
         console.error("Falha ao buscar produtos", error);
       }
@@ -33,10 +35,11 @@ export function ListaProdutos() {
     produto.nome.toLowerCase().includes(filtro.toLowerCase()) || 
     produto.id.toString().includes(filtro) ||
     produto.preco.toString().includes(filtro) ||
-    (produto.categoria && produto.categoria.descricao.toLowerCase().includes(filtro.toLowerCase()))
+    (produto.categoria && produto.categoria.descricao.toLowerCase().includes(filtro.toLowerCase())) ||
+    (produto.fornecedor && produto.fornecedor.nome.toLowerCase().includes(filtro.toLowerCase()))
   );
 
-  const alterar = async (dadosFormulario: Omit<Produto, "id" | "categoria">) => {
+  const alterar = async (dadosFormulario: Omit<Produto, "id" | "categoria" | "fornecedor">) => {
     if (!produtoASerMudado) return;
 
     const produtoParaApi = {
@@ -44,6 +47,7 @@ export function ListaProdutos() {
       preco: dadosFormulario.preco,
       categoriaId: dadosFormulario.categoriaId,
       estoque: dadosFormulario.estoque,
+      fornecedorId: dadosFormulario.fornecedorId,
     };
 
     const response = await fetch(
@@ -59,12 +63,14 @@ export function ListaProdutos() {
 
     if (response.ok) {
       const categoriaDoProdutoAlterado = produtoASerMudado.categoria;
+      const fornecedorDoProdutoAlterado = produtoASerMudado.fornecedor;
       const produtoAtualizadoNaUi = {
         id: produtoASerMudado.id,
         nome: dadosFormulario.nome,
         preco: dadosFormulario.preco,
         estoque: dadosFormulario.estoque,
         categoria: categoriaDoProdutoAlterado,
+        fornecedor: fornecedorDoProdutoAlterado,
       };
       setProdutos((produtosAnteriores) =>
         produtosAnteriores.map((prod) =>
@@ -117,6 +123,7 @@ export function ListaProdutos() {
               <TableCell>Nome</TableCell>
               <TableCell>Preço</TableCell>
               <TableCell>Categoria</TableCell>
+              <TableCell>Fornecedor</TableCell>
               <TableCell>Estoque</TableCell>
               <TableCell align="right">Ações</TableCell>
             </TableRow>
@@ -128,6 +135,7 @@ export function ListaProdutos() {
                 <TableCell>{produto.nome}</TableCell>
                 <TableCell>{produto.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</TableCell>
                 <TableCell>{produto.categoria?.descricao}</TableCell>
+                <TableCell>{produto.fornecedor?.nome}</TableCell>
                 <TableCell>{produto.estoque}</TableCell>
                 <TableCell align="right">
                   <Button variant="contained" size="small" onClick={() => abrirModal(produto)}>Editar</Button>

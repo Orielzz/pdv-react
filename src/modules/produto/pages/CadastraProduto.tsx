@@ -6,12 +6,13 @@ import type { Produto } from "../types/Produto";
 export function CadastraProduto() {
   const navigate = useNavigate();
 
-  const cadastrar = async (dadosFormulario: Omit<Produto, "id" | "categoria">) => {
+  const cadastrar = async (dadosFormulario: Omit<Produto, "id" | "categoria" | "fornecedor">) => {
     const produtoParaApi = {
       nome: dadosFormulario.nome,
       preco: dadosFormulario.preco,
       categoriaId: dadosFormulario.categoriaId,
       estoque: dadosFormulario.estoque,
+      fornecedorId: dadosFormulario.fornecedorId,
     };
 
     const response = await fetch("http://localhost:3001/produtos", {
