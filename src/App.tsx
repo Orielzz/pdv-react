@@ -1,26 +1,68 @@
 
-import { BrowserRouter, Link } from 'react-router-dom'
+import { BrowserRouter, Link } from 'react-router-dom';
 import './App.css'
 import { AppRoutes } from './routes/AppRoutes';
-import { List, ListItem } from '@mui/material';
+import { AppBar, Box, CssBaseline, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
+
+const drawerWidth = '20%';
+
+const menuItems = [
+  { text: 'Cadastrar Categoria', path: '/categorias/cadastrar' },
+  { text: 'Listar Categorias', path: '/categorias/' },
+  { text: 'Cadastrar Produto', path: '/produtos/cadastrar' },
+  { text: 'Listar Produtos', path: '/produtos/' },
+  { text: 'Cadastrar Fornecedor', path: '/fornecedores/cadastrar' },
+  { text: 'Listar Fornecedores', path: '/fornecedores/' },
+  {text: 'Listar Vendas', path: '/vendas/'}
+];
 
 function App() {
 
   return (
     <BrowserRouter>
-    <h1>Bem vindo!</h1>
-            <List className='listaSemEstilo'>
-                <ListItem><Link to="/categorias/cadastrar">Cadastrar Categoria</Link></ListItem>
-                <ListItem><Link to="/categorias/">Listar Categorias</Link></ListItem>
-                <ListItem><Link to="/produtos/cadastrar">Cadastrar Produto</Link></ListItem>
-                <ListItem><Link to="/produtos/">Listar Produtos</Link></ListItem>
-                <ListItem><Link to="/fornecedores/cadastrar">Cadastrar Fornecedor</Link></ListItem>
-                <ListItem><Link to="/fornecedores/">Listar Fornecedores</Link></ListItem>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          sx={{ width: `calc(100% - ${drawerWidth})`, ml: `${drawerWidth}` }}
+        >
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div">
+              Sistema PDV
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          }}
+        >
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div">
+              PDV
+            </Typography>
+          </Toolbar>
+          <Box sx={{ overflow: 'auto' }}>
+            <List>
+              {menuItems.map((item) => (
+                <ListItem key={item.text} disablePadding>
+                  <ListItemButton component={Link} to={item.path}>
+                    <ListItemText primary={item.text} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
             </List>
-    
-    <AppRoutes />
+          </Box>
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+          <Toolbar />
+          <AppRoutes />
+        </Box>
+      </Box>
     </BrowserRouter>
-    
   )
 }
 

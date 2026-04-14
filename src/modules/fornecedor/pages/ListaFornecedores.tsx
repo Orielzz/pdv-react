@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import { FormFornecedor } from '../components/FormFornecedor';
 import type { Fornecedor } from '../types/Fornecedor';
 
@@ -96,7 +96,16 @@ export function ListaFornecedores() {
 
   return (
     <>
-      <TextField placeholder="Pesquisa" focused onChange={event => setFiltro(event.target.value)} />
+      <Typography variant="h4" gutterBottom align="center">
+        Lista de Fornecedores
+      </Typography>
+      <TextField
+        label="Pesquisar"
+        variant="outlined"
+        fullWidth
+        onChange={event => setFiltro(event.target.value)}
+        sx={{ mb: 2 }}
+      />
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="tabela de fornecedores">

@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FormFornecedor } from "../components/FormFornecedor";
 import type { Fornecedor } from "../types/Fornecedor";
@@ -23,9 +23,11 @@ export function CadastraFornecedor() {
   };
 
   return (
-    <Container>
-      <h1>Cadastro de Fornecedor</h1>
+    <>
+      <Typography variant="h4" gutterBottom align="center">
+        Cadastro de Fornecedor
+      </Typography>
       <FormFornecedor onSubmit={handleCadastrar} textoBotao="Cadastrar" />
-    </Container>
+    </>
   );
 }

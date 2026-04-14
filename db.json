@@ -28,19 +28,19 @@
   "produtos": [
     {
       "nome": "Bolinha de Borracha",
-      "preco": 15,
+      "preco": 152,
       "categoriaId": "3",
-      "estoque": 3,
-      "fornecedorId": "3",
+      "estoque": 33,
+      "fornecedorId": "2",
       "id": "2"
     },
     {
       "nome": "Cama de Algodão G",
       "preco": 120,
       "categoriaId": "4",
-      "fornecedorId": "2",
-      "id": "3",
-      "estoque": 5
+      "estoque": 5,
+      "fornecedorId": "3",
+      "id": "3"
     },
     {
       "nome": "Suplemento Vitamínico",
@@ -103,6 +103,48 @@
       "nome": "Global Pet Atacado",
       "cnpj": "45.678.912/0001-88",
       "telefone": "(31) 98877-6655"
+    }
+  ],
+  "vendas": [
+    {
+      "id": "1",
+      "data": "2024-03-20T10:30:00Z",
+      "total": 164,
+      "itensId": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "2",
+      "data": "2024-03-21T15:45:00Z",
+      "total": 240,
+      "itensId": [
+        3
+      ]
+    }
+  ],
+  "produtos_vendidos": [
+    {
+      "id": "1",
+      "vendaId": 1,
+      "produtoId": "2",
+      "quantidade": 1,
+      "precoUnitario": 152
+    },
+    {
+      "id": "2",
+      "vendaId": 1,
+      "produtoId": "6",
+      "quantidade": 1,
+      "precoUnitario": 12
+    },
+    {
+      "id": "3",
+      "vendaId": 2,
+      "produtoId": "3",
+      "quantidade": 2,
+      "precoUnitario": 120
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

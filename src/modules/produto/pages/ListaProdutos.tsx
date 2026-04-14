@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { FormProduto } from '../components/FormProduto';
 import type { Produto } from '../types/Produto';
 
@@ -62,15 +62,27 @@ export function ListaProdutos() {
     );
 
     if (response.ok) {
-      const categoriaDoProdutoAlterado = produtoASerMudado.categoria;
-      const fornecedorDoProdutoAlterado = produtoASerMudado.fornecedor;
+      const [resCategoria, resFornecedor] = await Promise.all([
+        fetch(`http://localhost:3001/categorias/${Number(dadosFormulario.categoriaId)}`),
+        fetch(`http://localhost:3001/fornecedores/${Number(dadosFormulario.fornecedorId)}`)
+      ]);
+
+      if (!resCategoria.ok || !resFornecedor.ok) {
+        throw new Error("Falha ao buscar dados de categoria ou fornecedor após a alteração.");
+      }
+
+      const novaCategoria = await resCategoria.json();
+      const novoFornecedor = await resFornecedor.json();
+
       const produtoAtualizadoNaUi = {
         id: produtoASerMudado.id,
         nome: dadosFormulario.nome,
         preco: dadosFormulario.preco,
         estoque: dadosFormulario.estoque,
-        categoria: categoriaDoProdutoAlterado,
-        fornecedor: fornecedorDoProdutoAlterado,
+        categoriaId: dadosFormulario.categoriaId,
+        fornecedorId: dadosFormulario.fornecedorId,
+        categoria: novaCategoria,
+        fornecedor: novoFornecedor,
       };
       setProdutos((produtosAnteriores) =>
         produtosAnteriores.map((prod) =>
@@ -113,7 +125,16 @@ export function ListaProdutos() {
 
   return (
     <>
-      <TextField placeholder="Pesquisa" focused onChange={event => setFiltro(event.target.value)} />
+      <Typography variant="h4" gutterBottom align="center">
+        Lista de Produtos
+      </Typography>
+      <TextField
+        label="Pesquisar"
+        variant="outlined"
+        fullWidth
+        onChange={event => setFiltro(event.target.value)}
+        sx={{ mb: 2 }}
+      />
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="tabela de produtos">

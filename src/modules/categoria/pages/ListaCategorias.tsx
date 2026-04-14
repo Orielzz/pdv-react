@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button,  Dialog, DialogActions, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import { Button,  Dialog, DialogActions, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { FormCategoria } from '../components/FormCategoria';
 import type { Categoria } from '../types/Categoria';
 
@@ -98,8 +98,16 @@ export function ListaCategorias() {
 
   return (
     <>
-
-        <TextField placeholder="Pesquisa" focused onChange={event => setFiltro(event.target.value)} ></TextField>
+      <Typography variant="h4" gutterBottom align="center">
+        Lista de Categorias
+      </Typography>
+      <TextField
+        label="Pesquisar"
+        variant="outlined"
+        fullWidth
+        onChange={event => setFiltro(event.target.value)}
+        sx={{ mb: 2 }}
+      />
 
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="tabela de categorias">

@@ -1,4 +1,4 @@
-import {Container, } from "@mui/material";
+import {Container, Typography, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FormCategoria } from "../components/FormCategoria";
 import type { Categoria } from "../types/Categoria";
@@ -23,7 +23,9 @@ export function CadastraCategoria() {
   };
 
   return (<Container>
-      <h1>Cadastro de Categoria</h1>
+      <Typography variant="h4" gutterBottom align="center">
+        Cadastro de Categoria
+      </Typography>
         <FormCategoria onSubmit={handleCadastrar} textoBotao="Cadastrar" />
         </Container>
   );
