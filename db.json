@@ -36,14 +36,16 @@
       "categoriaId": "3",
       "estoque": 32,
       "fornecedorId": "2",
+      "marcaId": "S5ESo3jAYXE",
       "id": "2"
     },
     {
       "nome": "Cama de Algodão G",
       "preco": 120,
       "categoriaId": "4",
-      "estoque": 1,
+      "estoque": 0,
       "fornecedorId": "3",
+      "marcaId": "_J83g3tNha8",
       "id": "3"
     },
     {
@@ -51,6 +53,7 @@
       "preco": 45.5,
       "categoriaId": "5",
       "fornecedorId": "3",
+      "marcaId": "S5ESo3jAYXE",
       "id": "4",
       "estoque": 17
     },
@@ -60,7 +63,8 @@
       "preco": 89.9,
       "categoriaId": 6,
       "fornecedorId": "2",
-      "estoque": 15
+      "marcaId": "zqnIP67oZio",
+      "estoque": 13
     },
     {
       "id": "6",
@@ -68,6 +72,7 @@
       "preco": 12,
       "categoriaId": 7,
       "fornecedorId": "3",
+      "marcaId": "Kr0Li_AGHTA",
       "estoque": 50
     },
     {
@@ -76,6 +81,7 @@
       "categoriaId": "5IIp8E759I8",
       "estoque": 7,
       "fornecedorId": "2",
+      "marcaId": "_J83g3tNha8",
       "id": "7"
     },
     {
@@ -84,6 +90,7 @@
       "categoriaId": "2",
       "estoque": 13,
       "fornecedorId": "H2ZnkS5WrrM",
+      "marcaId": "S5ESo3jAYXE",
       "id": "7PZF4Z5Gx2c"
     },
     {
@@ -92,6 +99,7 @@
       "categoriaId": "4",
       "estoque": 100,
       "fornecedorId": "2",
+      "marcaId": "zqnIP67oZio",
       "id": "nw6_fBI8XRU"
     },
     {
@@ -99,7 +107,8 @@
       "preco": 29.9,
       "categoriaId": "5IIp8E759I8",
       "estoque": 10,
-      "fornecedorId": "2",
+      "fornecedorId": "3",
+      "marcaId": "zqnIP67oZio",
       "id": "H_6N5dxW-YU"
     }
   ],
@@ -134,20 +143,13 @@
       ]
     },
     {
-      "id": "2",
-      "data": "2024-03-21T15:45:00Z",
-      "total": 240,
+      "data": "2026-04-16T20:36:49.294Z",
+      "total": 299.8,
       "itensId": [
-        3
-      ]
-    },
-    {
-      "data": "2026-04-14T23:15:41.113Z",
-      "total": 480,
-      "itensId": [
-        "UEqKg5GwA3U"
+        "KCk3KaPDdBs",
+        "BUPTncXVJ-o"
       ],
-      "id": "MaKS3ZDdkjU"
+      "id": "DSBcyYahtuM"
     }
   ],
   "produtos_vendidos": [
@@ -166,18 +168,36 @@
       "precoUnitario": 12
     },
     {
-      "id": "3",
-      "vendaId": 2,
+      "vendaId": "DSBcyYahtuM",
       "produtoId": "3",
-      "quantidade": 2,
-      "precoUnitario": 120
+      "quantidade": 1,
+      "precoUnitario": 120,
+      "id": "KCk3KaPDdBs"
     },
     {
-      "vendaId": "MaKS3ZDdkjU",
-      "produtoId": "3",
-      "quantidade": 4,
-      "precoUnitario": 120,
-      "id": "UEqKg5GwA3U"
+      "vendaId": "DSBcyYahtuM",
+      "produtoId": "5",
+      "quantidade": 2,
+      "precoUnitario": 89.9,
+      "id": "BUPTncXVJ-o"
+    }
+  ],
+  "marcas": [
+    {
+      "nome": "Pedigree",
+      "id": "Kr0Li_AGHTA"
+    },
+    {
+      "nome": "Golden",
+      "id": "S5ESo3jAYXE"
+    },
+    {
+      "nome": "Quatree",
+      "id": "zqnIP67oZio"
+    },
+    {
+      "nome": "PetPano",
+      "id": "_J83g3tNha8"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

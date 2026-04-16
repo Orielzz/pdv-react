@@ -3,9 +3,10 @@ import type { Produto } from "../types/Produto";
 import { useEffect, useState } from "react";
 import type { Categoria } from "../../categoria/types/Categoria";
 import type { Fornecedor } from "../../fornecedor/types/Fornecedor";
+import type { Marca } from "../../marca/types/Marca";
 
 type Props = {
-  onSubmit: (produto: Omit<Produto, "id" | "categoria" | "fornecedor">) => Promise<void>;
+  onSubmit: (produto: Omit<Produto, "id" | "categoria" | "fornecedor" | "marca">) => Promise<void>;
   textoBotao: string;
   valorInicial?: Produto;
 };
@@ -17,6 +18,8 @@ export function FormProduto({ onSubmit, textoBotao, valorInicial }: Props) {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [fornecedorId, setFornecedorId] = useState<number | string>("");
   const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]);
+  const [marcaId, setMarcaId] = useState<number | string>("");
+  const [marcas, setMarcas] = useState<Marca[]>([]);
   const [erro, setErro] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [estoque, setEstoque] = useState("");
@@ -49,35 +52,51 @@ export function FormProduto({ onSubmit, textoBotao, valorInicial }: Props) {
   }, []);
 
   useEffect(() => {
+    async function buscarMarcas() {
+      try {
+        const response = await fetch("http://localhost:3001/marcas");
+        const data = await response.json();
+        setMarcas(data);
+      } catch (error) {
+        console.error("Falha ao buscar marcas", error);
+      }
+    }
+    buscarMarcas();
+  }, []);
+
+  useEffect(() => {
     setNome(valorInicial?.nome || "");
     setPreco(valorInicial?.preco ? valorInicial.preco.toString() : "");
     setEstoque(valorInicial?.estoque ? valorInicial.estoque.toString() : "");
     setCategoriaId(valorInicial?.categoria?.id || "");
     setFornecedorId(valorInicial?.fornecedor?.id || "");
+    setMarcaId(valorInicial?.marca?.id || "");
     setErro(null);
   }, [valorInicial]);
 
   const executeSubmit = async () => {
     const categoriaSelecionada = categorias.find(cat => cat.id === categoriaId);
     const fornecedorSelecionado = fornecedores.find(forn => forn.id === fornecedorId);
+    const marcaSelecionada = marcas.find(mar => mar.id === marcaId);
     const precoNumerico = parseFloat(preco);
     const estoqueNumerico = parseInt(estoque, 10);
 
 
-    if (nome.trim() === "" || isNaN(precoNumerico) || precoNumerico <= 0 || !categoriaSelecionada || isNaN(estoqueNumerico) || estoqueNumerico < 0 || !fornecedorSelecionado) {
+    if (nome.trim() === "" || isNaN(precoNumerico) || precoNumerico <= 0 || !categoriaSelecionada || isNaN(estoqueNumerico) || estoqueNumerico < 0 || !fornecedorSelecionado || !marcaSelecionada) {
       setErro("Todos os campos são obrigatórios. Preço e Estoque devem ser números positivos.");
       return;
     }
     setIsLoading(true);
     setErro(null);
     try {
-      await onSubmit({ nome, preco: precoNumerico, categoriaId: categoriaSelecionada.id, estoque: estoqueNumerico, fornecedorId: fornecedorSelecionado.id });
+      await onSubmit({ nome, preco: precoNumerico, categoriaId: categoriaSelecionada.id, estoque: estoqueNumerico, fornecedorId: fornecedorSelecionado.id, marcaId: marcaSelecionada.id });
       if (!valorInicial) {
         setNome("");
         setPreco("");
         setCategoriaId("");
         setEstoque("");
         setFornecedorId("");
+        setMarcaId("");
       }
     } catch (error) {
       const errorMessage =
@@ -160,6 +179,23 @@ export function FormProduto({ onSubmit, textoBotao, valorInicial }: Props) {
           {fornecedores.map((fornecedor) => (
             <MenuItem key={fornecedor.id} value={fornecedor.id}>
               {fornecedor.nome}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth disabled={isLoading}>
+        <InputLabel id="marca-select-label">Marca</InputLabel>
+        <Select
+          labelId="marca-select-label"
+          id="marca-select"
+          value={marcaId}
+          label="Marca"
+          onChange={(e) => setMarcaId(e.target.value as number)}
+          required
+        >
+          {marcas.map((marca) => (
+            <MenuItem key={marca.id} value={marca.id}>
+              {marca.nome}
             </MenuItem>
           ))}
         </Select>

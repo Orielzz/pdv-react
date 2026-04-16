@@ -16,10 +16,12 @@ export function ListaProdutos() {
         const produtosComDados = await Promise.all(data.map(async (produto: Produto) => {
          const responseCategoria = await fetch(`http://localhost:3001/categorias/${produto.categoriaId}`);
          const responseFornecedor = await fetch(`http://localhost:3001/fornecedores/${produto.fornecedorId}`);
+         const responseMarca = await fetch(`http://localhost:3001/marcas/${produto.marcaId}`);
          return {
           ...produto,
           categoria: await responseCategoria.json(),
-          fornecedor: await responseFornecedor.json()
+          fornecedor: await responseFornecedor.json(),
+          marca: await responseMarca.json()
          }
         
         }))
@@ -36,7 +38,8 @@ export function ListaProdutos() {
     produto.id.toString().includes(filtro) ||
     produto.preco.toString().includes(filtro) ||
     (produto.categoria && produto.categoria.descricao.toLowerCase().includes(filtro.toLowerCase())) ||
-    (produto.fornecedor && produto.fornecedor.nome.toLowerCase().includes(filtro.toLowerCase()))
+    (produto.fornecedor && produto.fornecedor.nome.toLowerCase().includes(filtro.toLowerCase())) ||
+    (produto.marca && produto.marca.nome.toLowerCase().includes(filtro.toLowerCase()))
   );
 
   const alterar = async (dadosFormulario: Omit<Produto, "id" | "categoria" | "fornecedor">) => {
@@ -48,6 +51,7 @@ export function ListaProdutos() {
       categoriaId: dadosFormulario.categoriaId,
       estoque: dadosFormulario.estoque,
       fornecedorId: dadosFormulario.fornecedorId,
+      marcaId: dadosFormulario.marcaId,
     };
 
     const response = await fetch(
@@ -62,17 +66,19 @@ export function ListaProdutos() {
     );
 
     if (response.ok) {
-      const [resCategoria, resFornecedor] = await Promise.all([
+      const [resCategoria, resFornecedor, resMarca] = await Promise.all([
         fetch(`http://localhost:3001/categorias/${dadosFormulario.categoriaId}`),
-        fetch(`http://localhost:3001/fornecedores/${dadosFormulario.fornecedorId}`)
+        fetch(`http://localhost:3001/fornecedores/${dadosFormulario.fornecedorId}`),
+        fetch(`http://localhost:3001/marcas/${dadosFormulario.marcaId}`)
       ]);
 
-      if (!resCategoria.ok || !resFornecedor.ok) {
-        throw new Error("Falha ao buscar dados de categoria ou fornecedor após a alteração.");
+      if (!resCategoria.ok || !resFornecedor.ok || !resMarca.ok) {
+        throw new Error("Falha ao buscar dados de categoria, fornecedor ou marca após a alteração.");
       }
 
       const novaCategoria = await resCategoria.json();
       const novoFornecedor = await resFornecedor.json();
+      const novaMarca = await resMarca.json();
 
       const produtoAtualizadoNaUi = {
         id: produtoASerMudado.id,
@@ -81,8 +87,10 @@ export function ListaProdutos() {
         estoque: dadosFormulario.estoque,
         categoriaId: dadosFormulario.categoriaId,
         fornecedorId: dadosFormulario.fornecedorId,
+        marcaId: dadosFormulario.marcaId,
         categoria: novaCategoria,
         fornecedor: novoFornecedor,
+        marca: novaMarca,
       };
       setProdutos((produtosAnteriores) =>
         produtosAnteriores.map((prod) =>
@@ -145,6 +153,7 @@ export function ListaProdutos() {
               <TableCell>Preço</TableCell>
               <TableCell>Categoria</TableCell>
               <TableCell>Fornecedor</TableCell>
+              <TableCell>Marca</TableCell>
               <TableCell>Estoque</TableCell>
               <TableCell align="right">Ações</TableCell>
             </TableRow>
@@ -157,6 +166,7 @@ export function ListaProdutos() {
                 <TableCell>{produto.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</TableCell>
                 <TableCell>{produto.categoria?.descricao}</TableCell>
                 <TableCell>{produto.fornecedor?.nome}</TableCell>
+                <TableCell>{produto.marca?.nome}</TableCell>
                 <TableCell>{produto.estoque}</TableCell>
                 <TableCell align="right">
                   <Button variant="contained" size="small" onClick={() => abrirModal(produto)}>Editar</Button>

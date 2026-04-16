@@ -2,19 +2,44 @@
 import { BrowserRouter, Link } from 'react-router-dom';
 import './App.css'
 import { AppRoutes } from './routes/AppRoutes';
-import { AppBar, Box, CssBaseline, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, CssBaseline, Drawer, List, ListItem, ListItemButton, ListItemText, ListSubheader, Toolbar, Typography } from '@mui/material';
 
 const drawerWidth = '20%';
 
 const menuItems = [
+  { text: 'PDV', path: '/vendas/pdv' },
+  { text: 'Listar Vendas', path: '/vendas/' },
   { text: 'Cadastrar Categoria', path: '/categorias/cadastrar' },
   { text: 'Listar Categorias', path: '/categorias/' },
   { text: 'Cadastrar Produto', path: '/produtos/cadastrar' },
   { text: 'Listar Produtos', path: '/produtos/' },
   { text: 'Cadastrar Fornecedor', path: '/fornecedores/cadastrar' },
   { text: 'Listar Fornecedores', path: '/fornecedores/' },
-  { text: 'PDV', path: '/vendas/pdv' },
-  { text: 'Listar Vendas', path: '/vendas/' }
+  { text: 'Cadastrar Marca', path: '/marcas/cadastrar' },
+  { text: 'Listar Marcas', path: '/marcas/' },
+];
+
+const menuGroups = [
+  {
+    title: 'Vendas',
+    items: menuItems.slice(0, 2)
+  },
+  {
+    title: 'Categorias',
+    items: menuItems.slice(2, 4)
+  },
+  {
+    title: 'Produtos',
+    items: menuItems.slice(4, 6)
+  },
+  {
+    title: 'Fornecedores',
+    items: menuItems.slice(6, 8)
+  },
+  {
+    title: 'Marcas',
+    items: menuItems.slice(8, 10)
+  }
 ];
 
 function App() {
@@ -48,12 +73,17 @@ function App() {
           </Toolbar>
           <Box sx={{ overflow: 'auto' }}>
             <List>
-              {menuItems.map((item) => (
-                <ListItem key={item.text} disablePadding>
-                  <ListItemButton component={Link} to={item.path}>
-                    <ListItemText primary={item.text} />
-                  </ListItemButton>
-                </ListItem>
+              {menuGroups.map((group) => (
+                <div key={group.title}>
+                  <ListSubheader sx={{ bgcolor: 'primary.dark', color: 'white', fontWeight: 'bold' }}>{group.title}</ListSubheader>
+                  {group.items.map((item) => (
+                    <ListItem key={item.text} disablePadding>
+                      <ListItemButton component={Link} to={item.path}>
+                        <ListItemText primary={item.text} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </div>
               ))}
             </List>
           </Box>
