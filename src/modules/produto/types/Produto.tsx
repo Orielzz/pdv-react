@@ -2,12 +2,12 @@ import type { Categoria } from "../../categoria/types/Categoria";
 import type { Fornecedor } from "../../fornecedor/types/Fornecedor";
 
 export type Produto = {
-  id: number;
+  id: string;
   nome: string;
   preco: number;
-  categoria:Categoria;
+  categoria: Categoria;
   estoque: number;
-  categoriaId?: number;
+  categoriaId?: string;
   fornecedor?: Fornecedor;
-  fornecedorId?: number;
+  fornecedorId?: string;
 };

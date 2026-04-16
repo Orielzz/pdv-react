@@ -35,17 +35,29 @@ export function ListaVenda() {
   };
 
   useEffect(() => {
-    buscarVendas();
+    const carregarVendas = async () => {
+      await buscarVendas();
+    };
+    carregarVendas();
   }, []);
 
-  const excluirVenda = async (id: number) => {
+  const excluirVenda = async (venda: Venda) => {
     if (window.confirm("Deseja realmente excluir esta venda?")) {
       try {
-        const response = await fetch(`http://localhost:3001/vendas/${id}`, {
+        const deletarItens = await Promise.all(
+          venda.itensId!.map(async (itemId) => {
+            const response = await fetch(`http://localhost:3001/produtos_vendidos/${itemId}`, { method: "DELETE" });
+            return response;
+          })
+        );
+        if (deletarItens.some((res) => !res.ok)) {
+          throw new Error("Erro ao excluir itens da venda");
+        }
+        const response = await fetch(`http://localhost:3001/vendas/${venda.id}`, {
           method: "DELETE",
         });
         if (response.ok) {
-          setVendas((prev) => prev.filter((v) => v.id !== id));
+          setVendas((prev) => prev.filter((v) => v.id !== venda.id));
         }
       } catch (error) {
         console.error("Erro ao excluir venda", error);
@@ -57,7 +69,7 @@ export function ListaVenda() {
     setVendaSelecionada(null);
   };
 
-  const verDetalhes = async (id: number) => {
+  const verDetalhes = async (id: string) => {
     try {
       const responseVenda = await fetch("http://localhost:3001/vendas/" + id);
       const venda = (await responseVenda.json()) as Venda;
@@ -65,7 +77,7 @@ export function ListaVenda() {
 
       if (venda.itensId && venda.itensId.length > 0) {
         itens = await Promise.all(
-          venda.itensId.map(async (itemId: number) => {
+          venda.itensId.map(async (itemId: string) => {
             const responseItem = await fetch(
               `http://localhost:3001/produtos_vendidos/${itemId}`
             );
@@ -140,7 +152,7 @@ export function ListaVenda() {
                     variant="contained"
                     color="error"
                     size="small"
-                    onClick={() => excluirVenda(venda.id)}
+                    onClick={() => excluirVenda(venda)}
                   >
                     Excluir
                   </Button>

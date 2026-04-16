@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { CategoriasRoutes } from "../modules/categoria/routes/CategoriasRoutes";
 import { ProdutosRoutes } from "../modules/produto/routes/ProdutosRoutes";
 import { FornecedoresRoutes } from "../modules/fornecedor/routes/FornecedoresRoutes";
@@ -11,6 +11,7 @@ export function AppRoutes(){
             <Route path="/produtos/*" element={<ProdutosRoutes />} />
             <Route path="/fornecedores/*" element={<FornecedoresRoutes />} />
             <Route path="/vendas/*" element={<VendaRoutes />} />
+            <Route path="*" element={<Navigate to="/vendas/pdv" />} />
         </Routes>
     )
 }

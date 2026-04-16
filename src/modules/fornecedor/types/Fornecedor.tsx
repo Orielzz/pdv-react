@@ -1,5 +1,5 @@
 export type Fornecedor = {
-  id: number;
+  id: string;
   nome: string;
   cnpj: string;
   telefone: string;

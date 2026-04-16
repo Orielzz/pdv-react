@@ -23,6 +23,10 @@
     {
       "id": "7",
       "descricao": "Aquarismo e Répteis"
+    },
+    {
+      "descricao": "gato",
+      "id": "5IIp8E759I8"
     }
   ],
   "produtos": [
@@ -30,7 +34,7 @@
       "nome": "Bolinha de Borracha",
       "preco": 152,
       "categoriaId": "3",
-      "estoque": 33,
+      "estoque": 32,
       "fornecedorId": "2",
       "id": "2"
     },
@@ -38,7 +42,7 @@
       "nome": "Cama de Algodão G",
       "preco": 120,
       "categoriaId": "4",
-      "estoque": 5,
+      "estoque": 1,
       "fornecedorId": "3",
       "id": "3"
     },
@@ -48,7 +52,7 @@
       "categoriaId": "5",
       "fornecedorId": "3",
       "id": "4",
-      "estoque": 20
+      "estoque": 17
     },
     {
       "id": "5",
@@ -67,28 +71,36 @@
       "estoque": 50
     },
     {
-      "id": "7",
       "nome": "Cama de Batata",
       "preco": 100,
-      "categoriaId": 4,
+      "categoriaId": "5IIp8E759I8",
+      "estoque": 7,
       "fornecedorId": "2",
-      "estoque": 8
+      "id": "7"
     },
     {
       "nome": "Testando com Estoque",
       "preco": 122,
       "categoriaId": "2",
-      "fornecedorId": "3",
       "estoque": 13,
+      "fornecedorId": "H2ZnkS5WrrM",
       "id": "7PZF4Z5Gx2c"
     },
     {
       "nome": "teste 2",
       "preco": 123,
-      "categoriaId": "6",
-      "fornecedorId": "2",
+      "categoriaId": "4",
       "estoque": 100,
+      "fornecedorId": "2",
       "id": "nw6_fBI8XRU"
+    },
+    {
+      "nome": "churu",
+      "preco": 29.9,
+      "categoriaId": "5IIp8E759I8",
+      "estoque": 10,
+      "fornecedorId": "2",
+      "id": "H_6N5dxW-YU"
     }
   ],
   "fornecedores": [
@@ -103,6 +115,12 @@
       "nome": "Global Pet Atacado",
       "cnpj": "45.678.912/0001-88",
       "telefone": "(31) 98877-6655"
+    },
+    {
+      "nome": "teste",
+      "cnpj": "123",
+      "telefone": "121321312",
+      "id": "H2ZnkS5WrrM"
     }
   ],
   "vendas": [
@@ -122,6 +140,14 @@
       "itensId": [
         3
       ]
+    },
+    {
+      "data": "2026-04-14T23:15:41.113Z",
+      "total": 480,
+      "itensId": [
+        "UEqKg5GwA3U"
+      ],
+      "id": "MaKS3ZDdkjU"
     }
   ],
   "produtos_vendidos": [
@@ -145,6 +171,13 @@
       "produtoId": "3",
       "quantidade": 2,
       "precoUnitario": 120
+    },
+    {
+      "vendaId": "MaKS3ZDdkjU",
+      "produtoId": "3",
+      "quantidade": 4,
+      "precoUnitario": 120,
+      "id": "UEqKg5GwA3U"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

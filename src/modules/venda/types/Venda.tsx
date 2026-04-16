@@ -1,9 +1,9 @@
 import type { ProdutoVendido } from "./Produto_Vendido";
 
 export type Venda = {
-  id: number;
+  id: string;
   data: string;
   total: number;
   itens?: ProdutoVendido[];
-  itensId?: number[];
+  itensId?: string[];
 };

@@ -75,7 +75,7 @@ export function ListaCategorias() {
     setCategoriaASerMudada(null);
   }
 
-  async function excluir(id: number){
+  async function excluir(id: string){
     const confirmacao = window.confirm("Tem certeza que deseja excluir esta categoria?");
     if(confirmacao){
         try {

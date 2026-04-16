@@ -14,8 +14,8 @@ export function ListaProdutos() {
         const response = await fetch("http://localhost:3001/produtos");
         const data = await response.json();
         const produtosComDados = await Promise.all(data.map(async (produto: Produto) => {
-         const responseCategoria = await fetch(`http://localhost:3001/categorias/${Number(produto.categoriaId)}`);
-         const responseFornecedor = await fetch(`http://localhost:3001/fornecedores/${Number(produto.fornecedorId)}`);
+         const responseCategoria = await fetch(`http://localhost:3001/categorias/${produto.categoriaId}`);
+         const responseFornecedor = await fetch(`http://localhost:3001/fornecedores/${produto.fornecedorId}`);
          return {
           ...produto,
           categoria: await responseCategoria.json(),
@@ -63,8 +63,8 @@ export function ListaProdutos() {
 
     if (response.ok) {
       const [resCategoria, resFornecedor] = await Promise.all([
-        fetch(`http://localhost:3001/categorias/${Number(dadosFormulario.categoriaId)}`),
-        fetch(`http://localhost:3001/fornecedores/${Number(dadosFormulario.fornecedorId)}`)
+        fetch(`http://localhost:3001/categorias/${dadosFormulario.categoriaId}`),
+        fetch(`http://localhost:3001/fornecedores/${dadosFormulario.fornecedorId}`)
       ]);
 
       if (!resCategoria.ok || !resFornecedor.ok) {
@@ -95,7 +95,7 @@ export function ListaProdutos() {
     }
   };
 
-  async function excluir(id: number){
+  async function excluir(id: string){
     const confirmacao = window.confirm("Tem certeza que deseja excluir este produto?");
     if(confirmacao){
         try {

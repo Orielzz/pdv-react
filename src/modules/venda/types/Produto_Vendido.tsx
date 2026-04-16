@@ -1,10 +1,10 @@
 import type { Produto } from "../../produto/types/Produto";
 
 export type ProdutoVendido = {
-  id: number;
-  vendaId: number;
+  id: string;
+  vendaId: string;
   quantidade: number;
   precoUnitario: number;
-  produtoId?: number;
-  produto?:Produto;
+  produtoId?: string;
+  produto?: Produto;
 };

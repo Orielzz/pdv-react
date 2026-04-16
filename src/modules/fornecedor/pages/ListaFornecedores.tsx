@@ -66,7 +66,7 @@ export function ListaFornecedores() {
     }
   };
 
-  async function excluir(id: number){
+  async function excluir(id: string){
     const confirmacao = window.confirm("Tem certeza que deseja excluir este fornecedor?");
     if(confirmacao){
         try {

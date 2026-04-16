@@ -13,7 +13,8 @@ const menuItems = [
   { text: 'Listar Produtos', path: '/produtos/' },
   { text: 'Cadastrar Fornecedor', path: '/fornecedores/cadastrar' },
   { text: 'Listar Fornecedores', path: '/fornecedores/' },
-  {text: 'Listar Vendas', path: '/vendas/'}
+  { text: 'PDV', path: '/vendas/pdv' },
+  { text: 'Listar Vendas', path: '/vendas/' }
 ];
 
 function App() {
